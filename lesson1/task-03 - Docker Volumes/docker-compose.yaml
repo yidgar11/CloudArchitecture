@@ -1,0 +1,25 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      # Creates a default database at startup.
+      MYSQL_DATABASE: app_db
+      # Creates an additional user with its  password.
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_user_password
+    ports:
+      - "3306:3306"
+    volumes:
+      # map dbdata (local) to /var/lib/mysql in the image
+      - dbdata:/var/lib/mysql
+
+volumes:
+  dbdata:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./mysql_data

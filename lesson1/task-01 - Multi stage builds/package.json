@@ -1,0 +1,13 @@
+{
+  "name": "hello-world-server",
+  "version": "1.0.0",
+  "description": "A simple Node.js server that prints Hello World",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo 'Building the project... (nothing to compile)' && mkdir -p dist && cp server.js dist/",
+    "clean": "rm -rf dist"
+  },
+  "author": "yaniv idgar",
+  "license": "ISC"
+}
