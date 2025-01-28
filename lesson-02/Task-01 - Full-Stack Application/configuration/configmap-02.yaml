@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-db-configmap
+  namespace: fullstack-app
+data:
+  MYSQL_USER: root
+  MYSQL_DATABASE: mydb

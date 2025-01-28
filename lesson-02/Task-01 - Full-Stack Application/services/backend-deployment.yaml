@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: fullstack-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend-container
+        image: yidgar11/my-backend:1.0
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MYSQL_HOST
+          value: "mysql" # The service name of your MySQL pod.
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: my-db-configmap # Reference your ConfigMap.
+              key: MYSQL_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: my-db-secret # Reference your Secret.
+              key: root_password
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: my-db-configmap # Reference your ConfigMap.
+              key: MYSQL_DATABASE
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: fullstack-app # Use the same namespace as your MySQL pod.
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 80 # External port.
+      targetPort: 5000 # Container's port.
+  type: ClusterIP # Internal communication within the cluster.
