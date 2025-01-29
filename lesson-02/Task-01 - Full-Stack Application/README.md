@@ -56,9 +56,10 @@ Create a Secret for the MySQL root password and a ConfigMap for database configu
 
 #### 3.1 Create a Secret for the MySQL root password.
 
-decode mypassword nd add to the secretfile 
+decode mypassword and add to the secret file 
 
 `echo -n password | base64`
+
 ![img.png](img.png)
 
 #### 3.2 Create a ConfigMap for MySQL database configuration.
@@ -118,15 +119,22 @@ Already added "service" section in the deployment of
 
 ### 7. Create a ConfigMap for the backend server configuration.
 ### 8. Create a Secret for storing API keys used by the backend server.
-Done and deployed before the deployment of mysql,FE and BE 
+ section 7,8 were already done and deployed before the deployment of mysql,FE and BE 
 
 ### 9. Testing the Setup
 #### 9.1 Check the Frontend Service:
 `minikube service python-frontend-service -n $NS1`
+
 ![img_1.png](img_1.png)
 
 #### 9.2 Access the Backend Service from the Frontend Pod
 `k exec -it python-frontend-deployment-5b848cbdf5-lb562 -n $NS1 -- curl http://backend-service:80`
+
 ![img_5.png](img_5.png)
 
 #### 9.3 Verify Database Connection from the Backend Pod:
+
+
+Still problem - now working for some reason 
+k exec -it backend-deployment-7775b9cbb4-2wc4q -n $NS1 -- curl http://mysql:3306
+curl: (1) Received HTTP/0.9 when not allowed

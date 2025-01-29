@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: python-backend
+  name: python-backend
+  namespace: secure-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-backend
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: python-backend
+    spec:
+      containers:
+      - image: yidgar11/python-backend:2.0
+        imagePullPolicy: Always # Ensures the image is always pulled from the registry
+        name: python-backend
+        env:
+          - name: MONGO_HOST
+            value: mongo-db # this is the name of the mongodb (host)
+          - name: INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret # Reference your secret.
+                key: MONGO_INITDB_ROOT_USERNAME
+          - name: INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret  # Reference your secret.
+                key: MONGO_INITDB_ROOT_PASSWORD
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-backend-service
+  namespace: secure-app
+spec:
+  ports:
+    -
+      name: "python-backend"
+      port: 80
+      nodePort: 30033
+  type: "NodePort"
+  selector:
+    app: python-backend # Match with Deployment labels.
