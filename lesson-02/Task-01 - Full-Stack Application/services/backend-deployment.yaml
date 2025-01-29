@@ -27,7 +27,10 @@ spec:
         - containerPort: 5000
         env:
         - name: MYSQL_HOST
-          value: "mysql" # The service name of your MySQL pod.
+          valueFrom:
+            configMapKeyRef:
+              name: my-db-configmap # Reference your ConfigMap.
+              key: MYSQL_HOST # The service name of your MySQL pod.
         - name: MYSQL_USER
           valueFrom:
             configMapKeyRef:

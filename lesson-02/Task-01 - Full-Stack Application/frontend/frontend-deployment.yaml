@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-frontend-deployment
+  namespace: fullstack-app # Same namespace as backend.
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: python-frontend
+  template:
+    metadata:
+      labels:
+        app: python-frontend
+    spec:
+      containers:
+      - name: python-frontend-container
+        image: yidgar11/my-frontend:3.0
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5000 # Flask runs on port 5000.
+        env:
+        - name: BACKEND_URL # Pass backend URL as an environment variable.
+          value: "http://external-name-mysql.fullstack-app.svc.cluster.local"
+          # service-name.namespace-name .svc.cluster.local
+          # it will return 'backend-service.fullstack-app.svc.cluster.local'
+          # Which will get the value in service "backend-service"
+          # which in the service part of  backend-deployment.yaml
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-frontend-service
+  namespace: fullstack-app # Same namespace as backend.
+spec:
+  type: NodePort
+  selector:
+    app: python-frontend # Match the deployment label.
+  ports:
+    - protocol: TCP
+      port: 80 # External port.
+      targetPort: 5000 # Container's port.
+      nodePort: 30006

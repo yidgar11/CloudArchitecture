@@ -4,5 +4,6 @@ metadata:
   name: my-db-configmap
   namespace: fullstack-app
 data:
+  MYSQL_HOST: mysql
   MYSQL_USER: root
   MYSQL_DATABASE: mydb
