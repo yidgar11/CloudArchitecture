@@ -73,7 +73,6 @@ spec:
     -
       name: "mongodb"
       port: 27017
-      nodePort: 30332
-  type: "NodePort"
+  type: "ClusterIP"
   selector:
     app: "mongo-db"

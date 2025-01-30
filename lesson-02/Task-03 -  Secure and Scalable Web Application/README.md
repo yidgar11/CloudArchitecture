@@ -1,56 +1,57 @@
 
 # preparations 
-`alias k="kubectl"`
-
-`export NS3="secure-app"`
-
-`k create ns $NS3`
-
+```sh
+alias k="kubectl"
+export NS3="secure-app"
+k create ns $NS3
+````
 
 # Creation of all resources
-`k apply -f namespace/resource-quota.yaml`
-
-`k apply -f secrets/secret-02.yaml`
-
-`k apply -f configuration/configmap-02.yaml`
-
-`k apply -f configuration/external-name-service.yaml`
-
-`k apply -f storage/mysql-storage.yaml`
-
-`k apply -f services/mysql-deployment.yaml`
-
-`k apply -f services/backend-deployment.yaml`
-
-`k apply -f frontend/frontend-deployment.yaml`
+## configurations etc'
+```sh
+k apply -f rbac/role.yaml
+k apply -f rbac/role-binding.yaml
+k apply -f storage/pvc.yaml
+k apply -f secrets/mongodb-secret.yaml
+k apply -f configuration/mongodb-cm.yaml
+k apply -f configuration/external-name-service.yaml`
+```
+`
+## Deploments etc'
+```sh
+k apply -f deployments/mongodb-deployment.yaml
+k apply -f deployments/mongodb-backend.yaml
+k apply -f deployments/mongodb-frontend.yaml
+```
 
 # Deletion of all resources
+## Deplyments etc'
+```sh
+k delete -f deployments/mongodb-deployment.yaml
+k delete -f deployments/mongodb-backend.yaml
+k delete -f deployments/mongodb-frontend.yaml
+```
 
-`k delete -f namespace/resource-quota.yaml`
-
-`k delete -f secrets/secret-02.yaml`
-
-`k delete -f configuration/configmap-02.yaml`
-
-`k delete -f configuration/external-name-service.yaml`
-
-`k delete -f storage/mysql-storage.yaml`
-
-`k delete -f services/mysql-deployment.yaml`
-
-`k delete -f services/backend-deployment.yaml`
-
-`k delete -f frontend/frontend-deployment.yaml`
-
+## configurations etc'
+```sh
+k delete -f rbac/role.yaml
+k delete -f rbac/role-binding.yaml
+k delete -f storage/pvc.yaml
+k delete -f secrets/mongodb-secret.yaml
+k delete -f configuration/mongodb-cm.yaml
+k delete -f configuration/external-name-service.yaml
+````
 
 # Description 
--- Add here Drawing 
+![img_6.png](img_6.png)
 
 ## Detailed Steps 
 ### 1. Create a namespace called `secure-app` to isolate the resources.
 
 ### 2. Set a resource quota for the namespace to limit resource usage.
-`k apply -f namespace/resource-quota.yaml`
+```sh
+k apply -f namespace/resource-quota.yaml
+```
 
 ### 3. Set Up RBAC Permissions
 Create Role and RoleBinding to manage permissions within the namespace.
@@ -83,41 +84,61 @@ Create a Secret for the MongoDB credentials and a ConfigMap for database configu
 #### 5.3 Include readiness and liveness probes for health checks.
 (v)
 
-##### Check the backend deployment app (/test return the databases list)
+##### Check the Backend deployment app (/test return the databases list)
 ` k exec -it pod/python-backend-5567d7d58f-zkwmm -n $NS3 --  curl http://localhost:5000/test`
 ![img_2.png](img_2.png)
 
+` k port-forward pod/python-backend-5567d7d58f-vtshb -n $NS3 5000:5000`
+and from other tab - `curl localhost:5000/test`
+![img_3.png](img_3.png)
+
+##### and from the service
+![img_4.png](img_4.png)
 
 ### 6. Deploy a Frontend Server
 #### Deploy the frontend server with environment variables configured to connect to the backend server.
+`k apply -f deployments/mongodb-frontend.yaml`
 #### Ensure the frontend server has three replicas.
+(v)
 #### Include readiness and liveness probes for health checks.
+`k apply -f configuration/external-name-service.yaml`
+
+#### Check the pod behavior 
+`k port-forward pod/python-frontend-7bbd6c8f7d-4s6ts -n $NS3 5000:5000`
+`curl localhost:5000/`
+![img_5.png](img_5.png)
+
+also check same behavior through the service port-forward,
+Expect same result 
+`k port-forward service/python-frontend-service -n $NS3 5000:80`
+`curl localhost:5000/`
 
 ### 7. Configure Services
 #### Create a ClusterIP service for the MongoDB database.
 Already done in the deployment 
 #### Create a ClusterIP service for the backend server.
-(x) Already done in the deployment 
+Already done in the deployment 
 #### Create a NodePort service for the frontend server.
-(x) Already done in the deployment 
+Already done in the deployment 
 #### Create an ExternalName service to map an external DNS name.
 
 ### 8. Use ConfigMaps for Configuration
 Create a ConfigMap for the backend server configuration.
 
-applied before the deployment of deploymets yaml 
+(v) applied before the deployment of deploymets yaml 
 
 `k apply -f configuration/mongodb-cm.yaml`
 
 ### 9. Use Secrets for Sensitive Data
 Create a Secret for storing API keys used by the backend server.
 
-applied before the deployment of deploymets yaml
+(V) applied before the deployment of deployments yaml
 
 `k apply -f secrets/mongodb-secret.yaml`
 
 ### 10. Perform Health Checks on Replicas
 Add liveness and readiness probes to the backend and frontend deployments to perform health checks.
+(v) 
 
 ## Testing the Setup
 Once everything is deployed, you can test the setup using `curl` commands.
@@ -125,11 +146,23 @@ Once everything is deployed, you can test the setup using `curl` commands.
 ```sh
 curl http://<minikube-ip>:30003
 ```
+i have used below: 
+`minikube service python-frontend-service -n $NS3`
+![img_7.png](img_7.png)
+
 ### 2. **Access the Backend Service from the Frontend Pod:**
 ```sh
-kubectl exec -it <frontend-pod> -n secure-app -- curl http://backend:8080
+# kubectl exec -it <frontend-pod> -n secure-app -- curl http://backend:8080
+k exec -it pod/python-frontend-659b74456-hwm4b -n $NS3 -- curl http://python-backend-service:80
 ```
+
+![img_8.png](img_8.png)
+
 ### 3. **Verify Database Connection from the Backend Pod:**
 ```sh
-kubectl exec -it <backend-pod> -n secure-app -- curl http://mongodb:27017
+# kubectl exec -it <backend-pod> -n secure-app -- curl http://mongodb:27017
+
+kubectl exec -it pod/python-backend-5567d7d58f-vtshb -n secure-app -- curl http://mongo-db:27017
 ```
+
+![img_9.png](img_9.png)

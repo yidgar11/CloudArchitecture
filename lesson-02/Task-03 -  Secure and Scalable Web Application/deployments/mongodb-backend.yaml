@@ -7,7 +7,7 @@ metadata:
   name: python-backend
   namespace: secure-app
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: python-backend
@@ -43,11 +43,11 @@ metadata:
   name: python-backend-service
   namespace: secure-app
 spec:
-  ports:
-    -
-      name: "python-backend"
-      port: 80
-      nodePort: 30033
-  type: "NodePort"
   selector:
     app: python-backend # Match with Deployment labels.
+  ports:
+    - protocol: TCP
+      name: "python-backend"
+      port: 80
+      targetPort: 5000
+  type: ClusterIP

@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-frontend
+  namespace: secure-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: python-frontend
+  template:
+    metadata:
+      labels:
+        app: python-frontend
+    spec:
+      containers:
+      - name: python-frontend
+        image: yidgar11/my-frontend-app:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 10 # Delay before the first liveness probe (adjust as needed)
+          periodSeconds: 5       # Frequency of subsequent liveness probes
+          timeoutSeconds: 2      # Timeout for each liveness probe response
+          failureThreshold: 3    # Number of failed probes before restarting the container
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5000       # Port the application is listening on
+          initialDelaySeconds: 5   # Delay before the first readiness probe (adjust as needed)
+          periodSeconds: 3         # Frequency of subsequent readiness probes
+          timeoutSeconds: 2        # Timeout for each readiness probe response
+          failureThreshold: 3      # Number of failed probes before marking the pod as "not ready"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-frontend-service
+  namespace: secure-app
+spec:
+  selector:
+    app: python-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+      nodePort: 30333
+  type: NodePort
