@@ -43,7 +43,7 @@ k delete -f configuration/external-name-service.yaml
 ````
 
 # Description 
-![img_6.png](img_6.png)
+![img_10.png](img_10.png)
 
 ## Detailed Steps 
 ### 1. Create a namespace called `secure-app` to isolate the resources.
@@ -56,7 +56,9 @@ k apply -f namespace/resource-quota.yaml
 ### 3. Set Up RBAC Permissions
 Create Role and RoleBinding to manage permissions within the namespace.
 #### Create a Role that grants permissions to manage pods and services.
-`k apply -f rbac/role.yaml`
+```sh
+k apply -f rbac/role.yaml
+````
 
 ![img_1.png](img_1.png)
 ####  Create a RoleBinding that assigns the Role to a specific user.
@@ -67,10 +69,14 @@ Create Role and RoleBinding to manage permissions within the namespace.
 ### 4. Deploy a MongoDB Database
 Create a Secret for the MongoDB credentials and a ConfigMap for database configuration.
 #### Create a Secret for MongoDB credentials.
-`k apply -f secrets/mongodb-secret.yaml`
+```sh
+k apply -f secrets/mongodb-secret.yaml
+```
 
 #### Create a ConfigMap for MongoDB configuration.
-`k apply -f configuration/mongodb-cm.yaml`
+```sh
+k apply -f configuration/mongodb-cm.yaml
+```
 
 #### Deploy MongoDB with the created Secret and ConfigMap.
 `k apply -f deployments/mongodb-deployment.yaml`
@@ -85,11 +91,16 @@ Create a Secret for the MongoDB credentials and a ConfigMap for database configu
 (v)
 
 ##### Check the Backend deployment app (/test return the databases list)
-` k exec -it pod/python-backend-5567d7d58f-zkwmm -n $NS3 --  curl http://localhost:5000/test`
+```sh
+k exec -it pod/python-backend-5567d7d58f-zkwmm -n $NS3 --  curl http://localhost:5000/test
+```
 ![img_2.png](img_2.png)
 
-` k port-forward pod/python-backend-5567d7d58f-vtshb -n $NS3 5000:5000`
-and from other tab - `curl localhost:5000/test`
+```sh
+k port-forward pod/python-backend-5567d7d58f-vtshb -n $NS3 5000:5000`
+# and from other tab: 
+curl localhost:5000/test
+```
 ![img_3.png](img_3.png)
 
 ##### and from the service
@@ -97,21 +108,29 @@ and from other tab - `curl localhost:5000/test`
 
 ### 6. Deploy a Frontend Server
 #### Deploy the frontend server with environment variables configured to connect to the backend server.
-`k apply -f deployments/mongodb-frontend.yaml`
+```sh
+k apply -f deployments/mongodb-frontend.yaml
+```
 #### Ensure the frontend server has three replicas.
 (v)
 #### Include readiness and liveness probes for health checks.
-`k apply -f configuration/external-name-service.yaml`
+```sh
+k apply -f configuration/external-name-service.yaml
+```
 
 #### Check the pod behavior 
-`k port-forward pod/python-frontend-7bbd6c8f7d-4s6ts -n $NS3 5000:5000`
-`curl localhost:5000/`
+```sh
+k port-forward pod/python-frontend-7bbd6c8f7d-4s6ts -n $NS3 5000:5000
+curl localhost:5000/
+```
 ![img_5.png](img_5.png)
 
 also check same behavior through the service port-forward,
 Expect same result 
-`k port-forward service/python-frontend-service -n $NS3 5000:80`
-`curl localhost:5000/`
+```sh
+k port-forward service/python-frontend-service -n $NS3 5000:80
+curl localhost:5000/
+```
 
 ### 7. Configure Services
 #### Create a ClusterIP service for the MongoDB database.
@@ -127,14 +146,18 @@ Create a ConfigMap for the backend server configuration.
 
 (v) applied before the deployment of deploymets yaml 
 
-`k apply -f configuration/mongodb-cm.yaml`
+```sh
+k apply -f configuration/mongodb-cm.yaml
+```
 
 ### 9. Use Secrets for Sensitive Data
 Create a Secret for storing API keys used by the backend server.
 
 (V) applied before the deployment of deployments yaml
 
-`k apply -f secrets/mongodb-secret.yaml`
+```sh
+k apply -f secrets/mongodb-secret.yaml
+```
 
 ### 10. Perform Health Checks on Replicas
 Add liveness and readiness probes to the backend and frontend deployments to perform health checks.
@@ -146,8 +169,11 @@ Once everything is deployed, you can test the setup using `curl` commands.
 ```sh
 curl http://<minikube-ip>:30003
 ```
-i have used below: 
-`minikube service python-frontend-service -n $NS3`
+I have used below: 
+```sh
+minikube service python-frontend-service -n $NS3
+```
+
 ![img_7.png](img_7.png)
 
 ### 2. **Access the Backend Service from the Frontend Pod:**
