@@ -4,6 +4,34 @@ alias k="kubectl"
 export NS2="multi-tier-app"
 ```
 
+# Creation of all resources
+```sh
+k apply -f namespace/resource-quota.yaml
+k apply -f configuration/configmap-redis.yaml
+k apply -f configuration/external-name-service.yaml
+k apply -f secrets/redis-secret.yaml
+
+k apply -f deployments/redis-deployment.yaml
+k apply -f deployments/backend-deployment.yaml
+k apply -f deployments/frontend-deployment.yaml
+```
+
+# Deletion of all resources
+```sh
+k delete -f deployments/redis-deployment.yaml
+k delete -f deployments/backend-deployment.yaml
+k delete -f deployments/frontend-deployment.yaml
+
+k delete -f namespace/resource-quota.yaml
+k delete -f configuration/configmap-redis.yaml
+k delete -f configuration/external-name-service.yaml
+k delete -f secrets/redis-secret.yaml
+```
+
+Decription
+![img_8.png](img_8.png)
+
+
 ## Steps 
 ### 1. Create a namespace called `multi-tier-app` to isolate the resources.
 
