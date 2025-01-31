@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-app
+  namespace: multi-tier-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-app
+  template:
+    metadata:
+      labels:
+        app: frontend-app
+    spec:
+      containers:
+      - name: frontend-app
+        image: yidgar11/my-frontend-app-redis:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        env:
+          - name: BACKEND_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: redis-config # Reference your ConfigMap.
+                key: BACKEND_HOST
+          - name: BACKEND_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: redis-config # Reference your ConfigMap.
+                key: BACKEND_PORT
+          - name: REDIS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: redis-secret # Reference your secret.
+                key: REDIS_PASSWORD
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service # The stable DNS name
+  namespace: multi-tier-app
+spec:
+  selector:
+    app: frontend-app
+  ports:
+  - protocol: TCP
+    port: 80 # External port.
+    targetPort: 5000 # Container port.

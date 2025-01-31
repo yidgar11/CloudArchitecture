@@ -11,5 +11,12 @@ data:
     save 900 1
     save 300 10
     save 60 10000
+    protected-mode yes
+    port 6379
     requirepass mypass
     bind 0.0.0.0
+
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+  BACKEND_HOST: "python-backend-app"
+  BACKEND_PORT: "8080"
