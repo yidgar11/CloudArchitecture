@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: python-frontend
-        image: yidgar11/my-frontend-app:1.0
+        image: yidgar11/my-frontend-app-mongo:1.0
         imagePullPolicy: Always
         ports:
         - containerPort: 5000

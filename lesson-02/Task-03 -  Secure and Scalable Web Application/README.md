@@ -43,7 +43,7 @@ k delete -f configuration/external-name-service.yaml
 ````
 
 # Description 
-![img_10.png](img_10.png)
+![img_6.png](img_6.png)
 
 ## Detailed Steps 
 ### 1. Create a namespace called `secure-app` to isolate the resources.

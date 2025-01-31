@@ -9,6 +9,7 @@ COPY . .
 
 # Install dependencies
 RUN pip install flask requests
+RUN apt-get update &&  apt-get upgrade && apt-get install -y curl iputils-ping net-tools
 
 # Expose port 5000 for Flask
 EXPOSE 5000

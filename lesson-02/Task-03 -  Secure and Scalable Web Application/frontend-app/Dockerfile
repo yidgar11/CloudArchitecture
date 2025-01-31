@@ -9,7 +9,7 @@ COPY . /app
 
 # Install dependencies
 RUN pip install --no-cache-dir flask requests
-RUN apt-get update && apt-get install -y curl
+RUN apt-get update &&  apt-get upgrade && apt-get install -y curl iputils-ping net-tools
 
 # Expose port 5000 for Flask app
 EXPOSE 5000

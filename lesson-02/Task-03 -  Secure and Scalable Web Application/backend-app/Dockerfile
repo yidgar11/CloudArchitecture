@@ -9,7 +9,7 @@ COPY . .
 
 # Install any needed packages specified in requirements.txt
 RUN pip install pymongo flask
-RUN apt-get update && apt-get install -y curl
+RUN apt-get update &&  apt-get upgrade && apt-get install -y curl iputils-ping net-tools
 
 # Expose port 5000 for the application
 EXPOSE 5000

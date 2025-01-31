@@ -6,7 +6,7 @@ WORKDIR /app
 # Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-RUN apt update &&  apt upgrade && apt install curl -y
+RUN apt update &&  apt upgrade && apt install -y curl iputils-ping net-tools
 
 
 # Copy application code
