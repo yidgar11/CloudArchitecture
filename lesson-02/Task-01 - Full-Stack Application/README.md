@@ -6,11 +6,13 @@ export NS1="fullstack-app"
 
 # Creation of all resources
 ```sh
+# configurations etc'
 k apply -f namespace/resource-quota.yaml
 k apply -f secrets/secret-02.yaml
 k apply -f configuration/configmap-02.yaml
 k apply -f configuration/external-name-service.yaml
 k apply -f storage/mysql-storage.yaml
+# Deployments etc'
 k apply -f services/mysql-deployment.yaml
 k apply -f services/backend-deployment.yaml
 k apply -f frontend/frontend-deployment.yaml
@@ -18,11 +20,13 @@ k apply -f frontend/frontend-deployment.yaml
 
 # Deletion of all resources
 ```sh
+# configurations etc'
 k delete -f namespace/resource-quota.yaml
 k delete -f secrets/secret-02.yaml
 k delete -f configuration/configmap-02.yaml
 k delete -f configuration/external-name-service.yaml
 k delete -f storage/mysql-storage.yaml
+# Deployments etc'
 k delete -f services/mysql-deployment.yaml
 k delete -f services/backend-deployment.yaml
 k delete -f frontend/frontend-deployment.yaml
@@ -123,12 +127,12 @@ k apply -f frontend/frontend-deployment.yaml
 ### 6. Configure Services
 Already added "service" section in the deployment of 
 - MySql deployment 
-- Fronend deployment
+- Frontend deployment
 - Backend deployment
 
 ### 7. Create a ConfigMap for the backend server configuration.
 ### 8. Create a Secret for storing API keys used by the backend server.
- section 7,8 were already done and deployed before the deployment of mysql,FE and BE 
+Section 7,8 above , were already done and deployed before the deployment of mysql,FE and BE 
 
 ### 9. Testing the Setup
 #### 9.1 Check the Frontend Service:
@@ -149,5 +153,7 @@ k exec -it python-frontend-deployment-5b848cbdf5-lb562 -n $NS1 -- curl http://ba
 
 
 Still problem - now working for some reason 
+```sh 
 k exec -it backend-deployment-7775b9cbb4-2wc4q -n $NS1 -- curl http://mysql:3306
+```
 curl: (1) Received HTTP/0.9 when not allowed

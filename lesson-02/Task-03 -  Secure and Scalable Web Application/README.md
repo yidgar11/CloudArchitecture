@@ -9,16 +9,14 @@ k create ns $NS3
 # Creation of all resources
 ## configurations etc'
 ```sh
+# configurations etc'
 k apply -f rbac/role.yaml
 k apply -f rbac/role-binding.yaml
 k apply -f storage/pvc.yaml
 k apply -f secrets/mongodb-secret.yaml
 k apply -f configuration/mongodb-cm.yaml
 k apply -f configuration/external-name-service.yaml`
-```
-`
-## Deploments etc'
-```sh
+## Deployments etc'
 k apply -f deployments/mongodb-deployment.yaml
 k apply -f deployments/mongodb-backend.yaml
 k apply -f deployments/mongodb-frontend.yaml
@@ -27,13 +25,11 @@ k apply -f deployments/mongodb-frontend.yaml
 # Deletion of all resources
 ## Deplyments etc'
 ```sh
+## Deployments etc'
 k delete -f deployments/mongodb-deployment.yaml
 k delete -f deployments/mongodb-backend.yaml
 k delete -f deployments/mongodb-frontend.yaml
-```
-
-## configurations etc'
-```sh
+# configurations etc'
 k delete -f rbac/role.yaml
 k delete -f rbac/role-binding.yaml
 k delete -f storage/pvc.yaml

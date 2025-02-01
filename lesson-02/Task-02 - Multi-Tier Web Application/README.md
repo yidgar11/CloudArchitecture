@@ -6,11 +6,12 @@ export NS2="multi-tier-app"
 
 # Creation of all resources
 ```sh
+# configurations etc'
 k apply -f namespace/resource-quota.yaml
 k apply -f configuration/configmap-redis.yaml
 k apply -f configuration/external-name-service.yaml
 k apply -f secrets/redis-secret.yaml
-
+# Deployments etc'
 k apply -f deployments/redis-deployment.yaml
 k apply -f deployments/backend-deployment.yaml
 k apply -f deployments/frontend-deployment.yaml
@@ -18,10 +19,11 @@ k apply -f deployments/frontend-deployment.yaml
 
 # Deletion of all resources
 ```sh
+# Deployments etc'
 k delete -f deployments/redis-deployment.yaml
 k delete -f deployments/backend-deployment.yaml
 k delete -f deployments/frontend-deployment.yaml
-
+# configurations etc'
 k delete -f namespace/resource-quota.yaml
 k delete -f configuration/configmap-redis.yaml
 k delete -f configuration/external-name-service.yaml
@@ -96,6 +98,7 @@ All below configs , were create in the deployment file of each one :
 - Create a ClusterIP service for the Redis cache.
 - Create a ClusterIP service for the backend server.
 - Create a NodePort service for the frontend server.
+
 ### 6.1 external name 
 - Create an ExternalName service to map an external DNS name.
 ```sh
@@ -129,7 +132,8 @@ k exec -it pod/frontend-app-5b5bc6d687-ts6ch -n $NS2 -- curl http://python-backe
 ```sh
 minikube service frontend-service -n $NS2
 ```
-TBD , does not work properly 
+??? does not work properly
+![img_9.png](img_9.png)
 
 ### 3. **Verify Cache Connection from the Backend Pod:**
 ```sh
