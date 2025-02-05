@@ -1,0 +1,15 @@
+since we use 1 node in minikube , the load balancer does not really matter
+load balancer is doing balance between nodes
+the deployment is balancing between the pods in same node
+
+
+
+when in venv , run
+ pip3 freeze
+
+and you will see everything installed in this venv
+
+
+use below to create requirements
+pip3 freeze >> requirements.txt
+
