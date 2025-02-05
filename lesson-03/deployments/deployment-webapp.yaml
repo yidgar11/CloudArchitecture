@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app-fe
+  namespace: task3-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-app-fe
+  template:
+    metadata:
+      labels:
+        app: web-app-fe
+    spec:
+      imagePullSecrets: # add below the AWS secret created before
+        - name: lesson3-secret
+      containers:
+      - name: web-app-fe # this is the Frontend
+        image: 148761662110.dkr.ecr.us-east-1.amazonaws.com/cloudarchitecture/l3-webservice-frontend:1.0
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        env:
+        - name: WORKER_SERVICE_NAME
+          value: webservice-be-app-service.task3-namespace.svc.cluster.local
+        ports:
+        - containerPort: 5001
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-app-fe-service
+  namespace: task3-namespace
+spec:
+  selector:
+    app: web-app-fe # Match with Deployment labels.
+  ports:
+    - protocol: TCP
+      name: web-app-fe-service
+      port: 5001
+      targetPort: 5001
+      nodePort: 30000
+  type: NodePort
