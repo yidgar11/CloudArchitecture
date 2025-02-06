@@ -121,5 +121,5 @@ trivy image -f json  \
 ```
 
 The reports are in files: 
- - results_be.json
- - results_fe.json
+ - results_be.json  - security_report_be.txt 
+ - results_fe.json  - security_report_fe.txt
