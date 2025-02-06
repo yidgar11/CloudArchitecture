@@ -1,0 +1,10 @@
+The Frontend image was scanned for HIGH and Critical vulnerabilities
+
+Findings :
+1 x CRITICAL vulnerability found - CVE-2023-45853 on library: zlib1g which will not be fixed
+2 x HIGH Vulberabilities found
+ - setuptools  (installed version 58.1.0)  : CVE-2022-40897 and  CVE-2024-6345 .
+   to resolve both , it is suggested to use version 70.0.0
+
+ - CVE-2024-26462, CVE-2023-2953  on different libraries and  CVE-2023-31484 on perl-base .
+    however , there is no fixed version for these issues - need to monitor these libraries for issues

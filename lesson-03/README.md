@@ -92,7 +92,7 @@ k exec -it service/web-app-fe-service -n $NS -- curl localhost:5001/livetest
 ```
 ![img.png](img.png)
 
-4. check the webserver-be pod
+4. check the webserver-be service
 ```shell
 k exec -it service/webservice-be-app-service -n $NS -- curl localhost:5002/livetest
 ```
@@ -109,4 +109,17 @@ k exec -it service/webservice-be-app-service -n $NS -- curl localhost:5002/livet
 ```shell
 k exec -it service/web-app-fe-service -n $NS -- curl -X POST -H $headers -d $body localhost:5001/analyze
 ```
-![img_5.png](img_5.png) 
+![img_5.png](img_5.png)
+
+
+
+# Scan using trivy 
+```shell
+trivy image -f json  \
+--severity HIGH,CRITICAL 
+-o results_fe/be.json $IMAGE_NAME
+```
+
+The reports are in files: 
+ - results_be.json
+ - results_fe.json

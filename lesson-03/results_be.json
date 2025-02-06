@@ -1,0 +1,877 @@
+{
+  "SchemaVersion": 2,
+  "CreatedAt": "2025-02-06T07:21:42.112259+02:00",
+  "ArtifactName": "148761662110.dkr.ecr.us-east-1.amazonaws.com/cloudarchitecture/l3-worker-service-backend:1.0",
+  "ArtifactType": "container_image",
+  "Metadata": {
+    "OS": {
+      "Family": "debian",
+      "Name": "12.9"
+    },
+    "ImageID": "sha256:56ffb08e3268ede632a87ea68e733bba6adf0418aba971c93d5d74373b2a4724",
+    "DiffIDs": [
+      "sha256:3ec51339a507de1c80397e41016d23da1e6fa610d7176da42ce5e46fb2ce4686",
+      "sha256:8651006d981438bb177061cc65a4a0caf7de6f150852f8152d1ae0f66fe1df2f",
+      "sha256:98d425a93b3ebc29fba82887d9e8c7da97aefc295800fc89efcae661721c6a20",
+      "sha256:fdbb0bd7f1590c84e19984861bc8d8bfc66efa9c35bc1f65364c024b2149480f",
+      "sha256:633758bf2de7d7216fb968342e64cd6bd97125d4182bb1345b6011d5a0b46088",
+      "sha256:f2146f88f9a0ff0507c8c5019bb2c9ef678528f48b8d46c2ab1723397528cdad",
+      "sha256:5801d4178aa206236f0fb30cc9de6f9060f68104da455617c9d38940c448301b",
+      "sha256:5fca1dfb4690519d212b9e8e5657165a9c11ac17af6aacec6987982a146b7869"
+    ],
+    "RepoTags": [
+      "148761662110.dkr.ecr.us-east-1.amazonaws.com/cloudarchitecture/l3-worker-service-backend:1.0"
+    ],
+    "RepoDigests": [
+      "148761662110.dkr.ecr.us-east-1.amazonaws.com/cloudarchitecture/l3-worker-service-backend@sha256:56ffb08e3268ede632a87ea68e733bba6adf0418aba971c93d5d74373b2a4724"
+    ],
+    "ImageConfig": {
+      "architecture": "arm64",
+      "created": "2025-02-05T15:36:08.485418503Z",
+      "docker_version": "27.3.1",
+      "history": [
+        {
+          "created": "2024-12-04T04:30:01Z",
+          "created_by": "# debian.sh --arch 'arm64' out/ 'bookworm' '@1738540800'",
+          "comment": "debuerreotype 0.15"
+        },
+        {
+          "created": "2024-12-04T04:30:01Z",
+          "created_by": "ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2024-12-04T04:30:01Z",
+          "created_by": "ENV LANG=C.UTF-8",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2024-12-04T04:30:01Z",
+          "created_by": "RUN /bin/sh -c set -eux; \tapt-get update; \tapt-get install -y --no-install-recommends \t\tca-certificates \t\tnetbase \t\ttzdata \t; \trm -rf /var/lib/apt/lists/* # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2024-12-04T04:30:01Z",
+          "created_by": "ENV GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2024-12-04T04:30:01Z",
+          "created_by": "ENV PYTHON_VERSION=3.9.21",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2024-12-04T04:30:01Z",
+          "created_by": "ENV PYTHON_SHA256=3126f59592c9b0d798584755f2bf7b081fa1ca35ce7a6fea980108d752a05bb1",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2024-12-04T04:30:01Z",
+          "created_by": "RUN /bin/sh -c set -eux; \t\tsavedAptMark=\"$(apt-mark showmanual)\"; \tapt-get update; \tapt-get install -y --no-install-recommends \t\tdpkg-dev \t\tgcc \t\tgnupg \t\tlibbluetooth-dev \t\tlibbz2-dev \t\tlibc6-dev \t\tlibdb-dev \t\tlibffi-dev \t\tlibgdbm-dev \t\tliblzma-dev \t\tlibncursesw5-dev \t\tlibreadline-dev \t\tlibsqlite3-dev \t\tlibssl-dev \t\tmake \t\ttk-dev \t\tuuid-dev \t\twget \t\txz-utils \t\tzlib1g-dev \t; \t\twget -O python.tar.xz \"https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz\"; \techo \"$PYTHON_SHA256 *python.tar.xz\" | sha256sum -c -; \twget -O python.tar.xz.asc \"https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc\"; \tGNUPGHOME=\"$(mktemp -d)\"; export GNUPGHOME; \tgpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$GPG_KEY\"; \tgpg --batch --verify python.tar.xz.asc python.tar.xz; \tgpgconf --kill all; \trm -rf \"$GNUPGHOME\" python.tar.xz.asc; \tmkdir -p /usr/src/python; \ttar --extract --directory /usr/src/python --strip-components=1 --file python.tar.xz; \trm python.tar.xz; \t\tcd /usr/src/python; \tgnuArch=\"$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)\"; \t./configure \t\t--build=\"$gnuArch\" \t\t--enable-loadable-sqlite-extensions \t\t--enable-optimizations \t\t--enable-option-checking=fatal \t\t--enable-shared \t\t--with-ensurepip \t; \tnproc=\"$(nproc)\"; \tEXTRA_CFLAGS=\"$(dpkg-buildflags --get CFLAGS)\"; \tLDFLAGS=\"$(dpkg-buildflags --get LDFLAGS)\"; \tLDFLAGS=\"${LDFLAGS:--Wl},--strip-all\"; \tmake -j \"$nproc\" \t\t\"EXTRA_CFLAGS=${EXTRA_CFLAGS:-}\" \t\t\"LDFLAGS=${LDFLAGS:-}\" \t; \trm python; \tmake -j \"$nproc\" \t\t\"EXTRA_CFLAGS=${EXTRA_CFLAGS:-}\" \t\t\"LDFLAGS=${LDFLAGS:--Wl},-rpath='\\$\\$ORIGIN/../lib'\" \t\tpython \t; \tmake install; \t\tcd /; \trm -rf /usr/src/python; \t\tfind /usr/local -depth \t\t\\( \t\t\t\\( -type d -a \\( -name test -o -name tests -o -name idle_test \\) \\) \t\t\t-o \\( -type f -a \\( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \\) \\) \t\t\\) -exec rm -rf '{}' + \t; \t\tldconfig; \t\tapt-mark auto '.*' \u003e /dev/null; \tapt-mark manual $savedAptMark; \tfind /usr/local -type f -executable -not \\( -name '*tkinter*' \\) -exec ldd '{}' ';' \t\t| awk '/=\u003e/ { so = $(NF-1); if (index(so, \"/usr/local/\") == 1) { next }; gsub(\"^/(usr/)?\", \"\", so); printf \"*%s\\n\", so }' \t\t| sort -u \t\t| xargs -r dpkg-query --search \t\t| cut -d: -f1 \t\t| sort -u \t\t| xargs -r apt-mark manual \t; \tapt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \trm -rf /var/lib/apt/lists/*; \t\texport PYTHONDONTWRITEBYTECODE=1; \tpython3 --version; \t\tpip3 install \t\t--disable-pip-version-check \t\t--no-cache-dir \t\t--no-compile \t\t'setuptools==58.1.0' \t\twheel \t; \tpip3 --version # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2024-12-04T04:30:01Z",
+          "created_by": "RUN /bin/sh -c set -eux; \tfor src in idle3 pip3 pydoc3 python3 python3-config; do \t\tdst=\"$(echo \"$src\" | tr -d 3)\"; \t\t[ -s \"/usr/local/bin/$src\" ]; \t\t[ ! -e \"/usr/local/bin/$dst\" ]; \t\tln -svT \"$src\" \"/usr/local/bin/$dst\"; \tdone # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2024-12-04T04:30:01Z",
+          "created_by": "CMD [\"python3\"]",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2025-02-05T11:25:35Z",
+          "created_by": "WORKDIR /app",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-02-05T15:35:54Z",
+          "created_by": "COPY . /app # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-02-05T15:36:01Z",
+          "created_by": "RUN /bin/sh -c pip install --no-cache-dir -r requirements.txt # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-02-05T15:36:08Z",
+          "created_by": "RUN /bin/sh -c apt-get update \u0026\u0026 apt-get -y upgrade \u0026\u0026 apt-get install -y curl iputils-ping net-tools \u0026\u0026 apt-get clean # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-02-05T15:36:08Z",
+          "created_by": "EXPOSE map[5002/tcp:{}]",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2025-02-05T15:36:08Z",
+          "created_by": "ENV WEB_SERVICE_NAME=tbd",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2025-02-05T15:36:08Z",
+          "created_by": "CMD [\"python\" \"worker-service.py\"]",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        }
+      ],
+      "os": "linux",
+      "rootfs": {
+        "type": "layers",
+        "diff_ids": [
+          "sha256:3ec51339a507de1c80397e41016d23da1e6fa610d7176da42ce5e46fb2ce4686",
+          "sha256:8651006d981438bb177061cc65a4a0caf7de6f150852f8152d1ae0f66fe1df2f",
+          "sha256:98d425a93b3ebc29fba82887d9e8c7da97aefc295800fc89efcae661721c6a20",
+          "sha256:fdbb0bd7f1590c84e19984861bc8d8bfc66efa9c35bc1f65364c024b2149480f",
+          "sha256:633758bf2de7d7216fb968342e64cd6bd97125d4182bb1345b6011d5a0b46088",
+          "sha256:f2146f88f9a0ff0507c8c5019bb2c9ef678528f48b8d46c2ab1723397528cdad",
+          "sha256:5801d4178aa206236f0fb30cc9de6f9060f68104da455617c9d38940c448301b",
+          "sha256:5fca1dfb4690519d212b9e8e5657165a9c11ac17af6aacec6987982a146b7869"
+        ]
+      },
+      "config": {
+        "Cmd": [
+          "python",
+          "worker-service.py"
+        ],
+        "Env": [
+          "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "LANG=C.UTF-8",
+          "GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568",
+          "PYTHON_VERSION=3.9.21",
+          "PYTHON_SHA256=3126f59592c9b0d798584755f2bf7b081fa1ca35ce7a6fea980108d752a05bb1",
+          "WEB_SERVICE_NAME=tbd"
+        ],
+        "WorkingDir": "/app",
+        "ExposedPorts": {
+          "5002": {}
+        },
+        "ArgsEscaped": true
+      }
+    }
+  },
+  "Results": [
+    {
+      "Target": "148761662110.dkr.ecr.us-east-1.amazonaws.com/cloudarchitecture/l3-worker-service-backend:1.0 (debian 12.9)",
+      "Class": "os-pkgs",
+      "Type": "debian",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2024-26462",
+          "PkgID": "libgssapi-krb5-2@1.20.1-2+deb12u2",
+          "PkgName": "libgssapi-krb5-2",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/debian/libgssapi-krb5-2@1.20.1-2%2Bdeb12u2?arch=arm64\u0026distro=debian-12.9",
+            "UID": "81988f2c57c5480c"
+          },
+          "InstalledVersion": "1.20.1-2+deb12u2",
+          "Status": "affected",
+          "Layer": {
+            "Digest": "sha256:46f3ffc15ad9b5f3e6e1a6c1de2575a18d961aa2428c191c8d6136f4df466848",
+            "DiffID": "sha256:98d425a93b3ebc29fba82887d9e8c7da97aefc295800fc89efcae661721c6a20"
+          },
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26462",
+          "DataSource": {
+            "ID": "debian",
+            "Name": "Debian Security Tracker",
+            "URL": "https://salsa.debian.org/security-tracker-team/security-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/kdc/ndr.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/kdc/ndr.c.",
+          "Severity": "HIGH",
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 3,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26462",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_3.md",
+            "https://linux.oracle.com/cve/CVE-2024-26462.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26462",
+            "https://security.netapp.com/advisory/ntap-20240415-0012/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26462"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.857Z",
+          "LastModifiedDate": "2024-11-21T09:02:27.01Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26462",
+          "PkgID": "libk5crypto3@1.20.1-2+deb12u2",
+          "PkgName": "libk5crypto3",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/debian/libk5crypto3@1.20.1-2%2Bdeb12u2?arch=arm64\u0026distro=debian-12.9",
+            "UID": "f14de696bfd400c6"
+          },
+          "InstalledVersion": "1.20.1-2+deb12u2",
+          "Status": "affected",
+          "Layer": {
+            "Digest": "sha256:46f3ffc15ad9b5f3e6e1a6c1de2575a18d961aa2428c191c8d6136f4df466848",
+            "DiffID": "sha256:98d425a93b3ebc29fba82887d9e8c7da97aefc295800fc89efcae661721c6a20"
+          },
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26462",
+          "DataSource": {
+            "ID": "debian",
+            "Name": "Debian Security Tracker",
+            "URL": "https://salsa.debian.org/security-tracker-team/security-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/kdc/ndr.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/kdc/ndr.c.",
+          "Severity": "HIGH",
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 3,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26462",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_3.md",
+            "https://linux.oracle.com/cve/CVE-2024-26462.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26462",
+            "https://security.netapp.com/advisory/ntap-20240415-0012/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26462"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.857Z",
+          "LastModifiedDate": "2024-11-21T09:02:27.01Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26462",
+          "PkgID": "libkrb5-3@1.20.1-2+deb12u2",
+          "PkgName": "libkrb5-3",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/debian/libkrb5-3@1.20.1-2%2Bdeb12u2?arch=arm64\u0026distro=debian-12.9",
+            "UID": "15199c1415181110"
+          },
+          "InstalledVersion": "1.20.1-2+deb12u2",
+          "Status": "affected",
+          "Layer": {
+            "Digest": "sha256:46f3ffc15ad9b5f3e6e1a6c1de2575a18d961aa2428c191c8d6136f4df466848",
+            "DiffID": "sha256:98d425a93b3ebc29fba82887d9e8c7da97aefc295800fc89efcae661721c6a20"
+          },
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26462",
+          "DataSource": {
+            "ID": "debian",
+            "Name": "Debian Security Tracker",
+            "URL": "https://salsa.debian.org/security-tracker-team/security-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/kdc/ndr.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/kdc/ndr.c.",
+          "Severity": "HIGH",
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 3,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26462",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_3.md",
+            "https://linux.oracle.com/cve/CVE-2024-26462.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26462",
+            "https://security.netapp.com/advisory/ntap-20240415-0012/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26462"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.857Z",
+          "LastModifiedDate": "2024-11-21T09:02:27.01Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26462",
+          "PkgID": "libkrb5support0@1.20.1-2+deb12u2",
+          "PkgName": "libkrb5support0",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/debian/libkrb5support0@1.20.1-2%2Bdeb12u2?arch=arm64\u0026distro=debian-12.9",
+            "UID": "425c3e472a538552"
+          },
+          "InstalledVersion": "1.20.1-2+deb12u2",
+          "Status": "affected",
+          "Layer": {
+            "Digest": "sha256:46f3ffc15ad9b5f3e6e1a6c1de2575a18d961aa2428c191c8d6136f4df466848",
+            "DiffID": "sha256:98d425a93b3ebc29fba82887d9e8c7da97aefc295800fc89efcae661721c6a20"
+          },
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26462",
+          "DataSource": {
+            "ID": "debian",
+            "Name": "Debian Security Tracker",
+            "URL": "https://salsa.debian.org/security-tracker-team/security-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/kdc/ndr.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/kdc/ndr.c.",
+          "Severity": "HIGH",
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 3,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26462",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_3.md",
+            "https://linux.oracle.com/cve/CVE-2024-26462.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26462",
+            "https://security.netapp.com/advisory/ntap-20240415-0012/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26462"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.857Z",
+          "LastModifiedDate": "2024-11-21T09:02:27.01Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2023-2953",
+          "PkgID": "libldap-2.5-0@2.5.13+dfsg-5",
+          "PkgName": "libldap-2.5-0",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/debian/libldap-2.5-0@2.5.13%2Bdfsg-5?arch=arm64\u0026distro=debian-12.9",
+            "UID": "12bb74aeb36270b2"
+          },
+          "InstalledVersion": "2.5.13+dfsg-5",
+          "Status": "affected",
+          "Layer": {
+            "Digest": "sha256:b4783abae1db81d4d758b5c4c65149cc22aa22bf549eeb9fd1b34c4618c37b4b",
+            "DiffID": "sha256:5fca1dfb4690519d212b9e8e5657165a9c11ac17af6aacec6987982a146b7869"
+          },
+          "SeveritySource": "nvd",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2023-2953",
+          "DataSource": {
+            "ID": "debian",
+            "Name": "Debian Security Tracker",
+            "URL": "https://salsa.debian.org/security-tracker-team/security-tracker"
+          },
+          "Title": "openldap: null pointer dereference in  ber_memalloc_x  function",
+          "Description": "A vulnerability was found in openldap. This security flaw causes a null pointer dereference in ber_memalloc_x() function.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-476"
+          ],
+          "VendorSeverity": {
+            "alma": 1,
+            "amazon": 2,
+            "bitnami": 3,
+            "cbl-mariner": 3,
+            "nvd": 3,
+            "oracle-oval": 1,
+            "photon": 3,
+            "redhat": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:H",
+              "V3Score": 7.1
+            }
+          },
+          "References": [
+            "http://seclists.org/fulldisclosure/2023/Jul/47",
+            "http://seclists.org/fulldisclosure/2023/Jul/48",
+            "http://seclists.org/fulldisclosure/2023/Jul/52",
+            "https://access.redhat.com/errata/RHSA-2024:4264",
+            "https://access.redhat.com/security/cve/CVE-2023-2953",
+            "https://bugs.openldap.org/show_bug.cgi?id=9904",
+            "https://bugzilla.redhat.com/2210651",
+            "https://errata.almalinux.org/8/ALSA-2024-4264.html",
+            "https://linux.oracle.com/cve/CVE-2023-2953.html",
+            "https://linux.oracle.com/errata/ELSA-2024-4264.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2023-2953",
+            "https://security.netapp.com/advisory/ntap-20230703-0005/",
+            "https://support.apple.com/kb/HT213843",
+            "https://support.apple.com/kb/HT213844",
+            "https://support.apple.com/kb/HT213845",
+            "https://ubuntu.com/security/notices/USN-6197-1",
+            "https://ubuntu.com/security/notices/USN-6616-1",
+            "https://www.cve.org/CVERecord?id=CVE-2023-2953"
+          ],
+          "PublishedDate": "2023-05-30T22:15:10.613Z",
+          "LastModifiedDate": "2025-01-10T22:15:23.557Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2023-2953",
+          "PkgID": "libldap-common@2.5.13+dfsg-5",
+          "PkgName": "libldap-common",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/debian/libldap-common@2.5.13%2Bdfsg-5?arch=all\u0026distro=debian-12.9",
+            "UID": "6ef4d210222ab82a"
+          },
+          "InstalledVersion": "2.5.13+dfsg-5",
+          "Status": "affected",
+          "Layer": {
+            "Digest": "sha256:b4783abae1db81d4d758b5c4c65149cc22aa22bf549eeb9fd1b34c4618c37b4b",
+            "DiffID": "sha256:5fca1dfb4690519d212b9e8e5657165a9c11ac17af6aacec6987982a146b7869"
+          },
+          "SeveritySource": "nvd",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2023-2953",
+          "DataSource": {
+            "ID": "debian",
+            "Name": "Debian Security Tracker",
+            "URL": "https://salsa.debian.org/security-tracker-team/security-tracker"
+          },
+          "Title": "openldap: null pointer dereference in  ber_memalloc_x  function",
+          "Description": "A vulnerability was found in openldap. This security flaw causes a null pointer dereference in ber_memalloc_x() function.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-476"
+          ],
+          "VendorSeverity": {
+            "alma": 1,
+            "amazon": 2,
+            "bitnami": 3,
+            "cbl-mariner": 3,
+            "nvd": 3,
+            "oracle-oval": 1,
+            "photon": 3,
+            "redhat": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:H",
+              "V3Score": 7.1
+            }
+          },
+          "References": [
+            "http://seclists.org/fulldisclosure/2023/Jul/47",
+            "http://seclists.org/fulldisclosure/2023/Jul/48",
+            "http://seclists.org/fulldisclosure/2023/Jul/52",
+            "https://access.redhat.com/errata/RHSA-2024:4264",
+            "https://access.redhat.com/security/cve/CVE-2023-2953",
+            "https://bugs.openldap.org/show_bug.cgi?id=9904",
+            "https://bugzilla.redhat.com/2210651",
+            "https://errata.almalinux.org/8/ALSA-2024-4264.html",
+            "https://linux.oracle.com/cve/CVE-2023-2953.html",
+            "https://linux.oracle.com/errata/ELSA-2024-4264.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2023-2953",
+            "https://security.netapp.com/advisory/ntap-20230703-0005/",
+            "https://support.apple.com/kb/HT213843",
+            "https://support.apple.com/kb/HT213844",
+            "https://support.apple.com/kb/HT213845",
+            "https://ubuntu.com/security/notices/USN-6197-1",
+            "https://ubuntu.com/security/notices/USN-6616-1",
+            "https://www.cve.org/CVERecord?id=CVE-2023-2953"
+          ],
+          "PublishedDate": "2023-05-30T22:15:10.613Z",
+          "LastModifiedDate": "2025-01-10T22:15:23.557Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2023-31484",
+          "PkgID": "perl-base@5.36.0-7+deb12u1",
+          "PkgName": "perl-base",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/debian/perl-base@5.36.0-7%2Bdeb12u1?arch=arm64\u0026distro=debian-12.9",
+            "UID": "e4a669ce9461b95"
+          },
+          "InstalledVersion": "5.36.0-7+deb12u1",
+          "Status": "affected",
+          "Layer": {
+            "Digest": "sha256:4d2547c084994a809c138e688fbe4ee14eedbc6e2defc5b1c680edd16e291473",
+            "DiffID": "sha256:3ec51339a507de1c80397e41016d23da1e6fa610d7176da42ce5e46fb2ce4686"
+          },
+          "SeveritySource": "nvd",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2023-31484",
+          "DataSource": {
+            "ID": "debian",
+            "Name": "Debian Security Tracker",
+            "URL": "https://salsa.debian.org/security-tracker-team/security-tracker"
+          },
+          "Title": "perl: CPAN.pm does not verify TLS certificates when downloading distributions over HTTPS",
+          "Description": "CPAN.pm before 2.35 does not verify TLS certificates when downloading distributions over HTTPS.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-295"
+          ],
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 3,
+            "cbl-mariner": 3,
+            "nvd": 3,
+            "oracle-oval": 2,
+            "redhat": 2,
+            "rocky": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 8.1
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 7.4
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2023/04/29/1",
+            "http://www.openwall.com/lists/oss-security/2023/05/03/3",
+            "http://www.openwall.com/lists/oss-security/2023/05/03/5",
+            "http://www.openwall.com/lists/oss-security/2023/05/07/2",
+            "https://access.redhat.com/errata/RHSA-2023:6539",
+            "https://access.redhat.com/security/cve/CVE-2023-31484",
+            "https://blog.hackeriet.no/perl-http-tiny-insecure-tls-default-affects-cpan-modules/",
+            "https://bugzilla.redhat.com/2218667",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2218667",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-31484",
+            "https://errata.almalinux.org/9/ALSA-2023-6539.html",
+            "https://errata.rockylinux.org/RLSA-2023:6539",
+            "https://github.com/andk/cpanpm/commit/9c98370287f4e709924aee7c58ef21c85289a7f0 (2.35-TRIAL)",
+            "https://github.com/andk/cpanpm/pull/175",
+            "https://linux.oracle.com/cve/CVE-2023-31484.html",
+            "https://linux.oracle.com/errata/ELSA-2024-3094.html",
+            "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/BM6UW55CNFUTNGD5ZRKGUKKKFDJGMFHL/",
+            "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/LEGCEOKFJVBJ2QQ6S2H4NAEWTUERC7SB/",
+            "https://metacpan.org/dist/CPAN/changes",
+            "https://nvd.nist.gov/vuln/detail/CVE-2023-31484",
+            "https://security.netapp.com/advisory/ntap-20240621-0007/",
+            "https://ubuntu.com/security/notices/USN-6112-1",
+            "https://ubuntu.com/security/notices/USN-6112-2",
+            "https://www.cve.org/CVERecord?id=CVE-2023-31484",
+            "https://www.openwall.com/lists/oss-security/2023/04/18/14"
+          ],
+          "PublishedDate": "2023-04-29T00:15:09Z",
+          "LastModifiedDate": "2024-11-21T08:01:57.707Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2023-45853",
+          "PkgID": "zlib1g@1:1.2.13.dfsg-1",
+          "PkgName": "zlib1g",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/debian/zlib1g@1.2.13.dfsg-1?arch=arm64\u0026distro=debian-12.9\u0026epoch=1",
+            "UID": "d9df1f9bdb549052"
+          },
+          "InstalledVersion": "1:1.2.13.dfsg-1",
+          "Status": "will_not_fix",
+          "Layer": {
+            "Digest": "sha256:4d2547c084994a809c138e688fbe4ee14eedbc6e2defc5b1c680edd16e291473",
+            "DiffID": "sha256:3ec51339a507de1c80397e41016d23da1e6fa610d7176da42ce5e46fb2ce4686"
+          },
+          "SeveritySource": "nvd",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2023-45853",
+          "DataSource": {
+            "ID": "debian",
+            "Name": "Debian Security Tracker",
+            "URL": "https://salsa.debian.org/security-tracker-team/security-tracker"
+          },
+          "Title": "zlib: integer overflow and resultant heap-based buffer overflow in zipOpenNewFileInZip4_6",
+          "Description": "MiniZip in zlib through 1.3 has an integer overflow and resultant heap-based buffer overflow in zipOpenNewFileInZip4_64 via a long filename, comment, or extra field. NOTE: MiniZip is not a supported part of the zlib product. NOTE: pyminizip through 0.2.6 is also vulnerable because it bundles an affected zlib version, and exposes the applicable MiniZip code through its compress API.",
+          "Severity": "CRITICAL",
+          "CweIDs": [
+            "CWE-190"
+          ],
+          "VendorSeverity": {
+            "amazon": 2,
+            "azure": 4,
+            "cbl-mariner": 4,
+            "ghsa": 4,
+            "nvd": 4,
+            "photon": 4,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 9.8
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 9.8
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:L",
+              "V3Score": 5.3
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2023/10/20/9",
+            "http://www.openwall.com/lists/oss-security/2024/01/24/10",
+            "https://access.redhat.com/security/cve/CVE-2023-45853",
+            "https://chromium.googlesource.com/chromium/src/+/d709fb23806858847131027da95ef4c548813356",
+            "https://chromium.googlesource.com/chromium/src/+/de29dd6c7151d3cd37cb4cf0036800ddfb1d8b61",
+            "https://github.com/madler/zlib/blob/ac8f12c97d1afd9bafa9c710f827d40a407d3266/contrib/README.contrib#L1-L4",
+            "https://github.com/madler/zlib/commit/73331a6a0481067628f065ffe87bb1d8f787d10c",
+            "https://github.com/madler/zlib/pull/843",
+            "https://github.com/smihica/pyminizip",
+            "https://github.com/smihica/pyminizip/blob/master/zlib-1.2.11/contrib/minizip/zip.c",
+            "https://lists.debian.org/debian-lts-announce/2023/11/msg00026.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2023-45853",
+            "https://pypi.org/project/pyminizip/#history",
+            "https://security.gentoo.org/glsa/202401-18",
+            "https://security.netapp.com/advisory/ntap-20231130-0009",
+            "https://security.netapp.com/advisory/ntap-20231130-0009/",
+            "https://ubuntu.com/security/notices/USN-7107-1",
+            "https://www.cve.org/CVERecord?id=CVE-2023-45853",
+            "https://www.winimage.com/zLibDll/minizip.html"
+          ],
+          "PublishedDate": "2023-10-14T02:15:09.323Z",
+          "LastModifiedDate": "2024-12-20T17:41:31.237Z"
+        }
+      ]
+    },
+    {
+      "Target": "Python",
+      "Class": "lang-pkgs",
+      "Type": "python-pkg",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2022-40897",
+          "PkgName": "setuptools",
+          "PkgPath": "usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA",
+          "PkgIdentifier": {
+            "PURL": "pkg:pypi/setuptools@58.1.0",
+            "UID": "a31a7b733078920c"
+          },
+          "InstalledVersion": "58.1.0",
+          "FixedVersion": "65.5.1",
+          "Status": "fixed",
+          "Layer": {
+            "Digest": "sha256:46f3ffc15ad9b5f3e6e1a6c1de2575a18d961aa2428c191c8d6136f4df466848",
+            "DiffID": "sha256:98d425a93b3ebc29fba82887d9e8c7da97aefc295800fc89efcae661721c6a20"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-40897",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory pip",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+          },
+          "Title": "pypa-setuptools: Regular Expression Denial of Service (ReDoS) in package_index.py",
+          "Description": "Python Packaging Authority (PyPA) setuptools before 65.5.1 allows remote attackers to cause a denial of service via HTML in a crafted package or custom PackageIndex page. There is a Regular Expression Denial of Service (ReDoS) in package_index.py.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-1333"
+          ],
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "bitnami": 2,
+            "cbl-mariner": 2,
+            "ghsa": 3,
+            "nvd": 2,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 2,
+            "rocky": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            },
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2023:0952",
+            "https://access.redhat.com/security/cve/CVE-2022-40897",
+            "https://bugzilla.redhat.com/2158559",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2158559",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-40897",
+            "https://errata.almalinux.org/9/ALSA-2023-0952.html",
+            "https://errata.rockylinux.org/RLSA-2023:0952",
+            "https://github.com/pypa/advisory-database/tree/main/vulns/setuptools/PYSEC-2022-43012.yaml",
+            "https://github.com/pypa/setuptools",
+            "https://github.com/pypa/setuptools/blob/fe8a98e696241487ba6ac9f91faa38ade939ec5d/setuptools/package_index.py#L200",
+            "https://github.com/pypa/setuptools/commit/43a9c9bfa6aa626ec2a22540bea28d2ca77964be",
+            "https://github.com/pypa/setuptools/compare/v65.5.0...v65.5.1",
+            "https://github.com/pypa/setuptools/issues/3659",
+            "https://linux.oracle.com/cve/CVE-2022-40897.html",
+            "https://linux.oracle.com/errata/ELSA-2024-2987.html",
+            "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ADES3NLOE5QJKBLGNZNI2RGVOSQXA37R",
+            "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ADES3NLOE5QJKBLGNZNI2RGVOSQXA37R/",
+            "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/YNA2BAH2ACBZ4TVJZKFLCR7L23BG5C3H",
+            "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/YNA2BAH2ACBZ4TVJZKFLCR7L23BG5C3H/",
+            "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ADES3NLOE5QJKBLGNZNI2RGVOSQXA37R",
+            "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/YNA2BAH2ACBZ4TVJZKFLCR7L23BG5C3H",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-40897",
+            "https://pyup.io/posts/pyup-discovers-redos-vulnerabilities-in-top-python-packages",
+            "https://pyup.io/posts/pyup-discovers-redos-vulnerabilities-in-top-python-packages/",
+            "https://pyup.io/vulnerabilities/CVE-2022-40897/52495",
+            "https://pyup.io/vulnerabilities/CVE-2022-40897/52495/",
+            "https://security.netapp.com/advisory/ntap-20230214-0001",
+            "https://security.netapp.com/advisory/ntap-20230214-0001/",
+            "https://security.netapp.com/advisory/ntap-20240621-0006",
+            "https://security.netapp.com/advisory/ntap-20240621-0006/",
+            "https://setuptools.pypa.io/en/latest",
+            "https://ubuntu.com/security/notices/USN-5817-1",
+            "https://www.cve.org/CVERecord?id=CVE-2022-40897"
+          ],
+          "PublishedDate": "2022-12-23T00:15:13.987Z",
+          "LastModifiedDate": "2024-11-21T07:22:13.787Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-6345",
+          "PkgName": "setuptools",
+          "PkgPath": "usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA",
+          "PkgIdentifier": {
+            "PURL": "pkg:pypi/setuptools@58.1.0",
+            "UID": "a31a7b733078920c"
+          },
+          "InstalledVersion": "58.1.0",
+          "FixedVersion": "70.0.0",
+          "Status": "fixed",
+          "Layer": {
+            "Digest": "sha256:46f3ffc15ad9b5f3e6e1a6c1de2575a18d961aa2428c191c8d6136f4df466848",
+            "DiffID": "sha256:98d425a93b3ebc29fba82887d9e8c7da97aefc295800fc89efcae661721c6a20"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-6345",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory pip",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+          },
+          "Title": "pypa/setuptools: Remote code execution via download functions in the package_index module in pypa/setuptools",
+          "Description": "A vulnerability in the package_index module of pypa/setuptools versions up to 69.1.1 allows for remote code execution via its download functions. These functions, which are used to download packages from URLs provided by users or retrieved from package index servers, are susceptible to code injection. If these functions are exposed to user-controlled inputs, such as package URLs, they can execute arbitrary commands on the system. The issue is fixed in version 70.0.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-94"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "amazon": 3,
+            "azure": 3,
+            "bitnami": 3,
+            "ghsa": 3,
+            "oracle-oval": 3,
+            "photon": 3,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+              "V3Score": 8.8
+            },
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+              "V3Score": 8.8
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+              "V3Score": 8.8
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:6726",
+            "https://access.redhat.com/security/cve/CVE-2024-6345",
+            "https://bugzilla.redhat.com/2297771",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2297771",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-6345",
+            "https://errata.almalinux.org/9/ALSA-2024-6726.html",
+            "https://errata.rockylinux.org/RLSA-2024:6726",
+            "https://github.com/pypa/setuptools",
+            "https://github.com/pypa/setuptools/commit/88807c7062788254f654ea8c03427adc859321f0",
+            "https://github.com/pypa/setuptools/pull/4332",
+            "https://huntr.com/bounties/d6362117-ad57-4e83-951f-b8141c6e7ca5",
+            "https://linux.oracle.com/cve/CVE-2024-6345.html",
+            "https://linux.oracle.com/errata/ELSA-2024-6726.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-6345",
+            "https://ubuntu.com/security/notices/USN-7002-1",
+            "https://www.cve.org/CVERecord?id=CVE-2024-6345"
+          ],
+          "PublishedDate": "2024-07-15T01:15:01.73Z",
+          "LastModifiedDate": "2024-11-21T09:49:28.17Z"
+        }
+      ]
+    }
+  ]
+}
