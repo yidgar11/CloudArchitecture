@@ -10,6 +10,11 @@ export body='{"text": "This is a test task"}'
 aws ecr create-repository --region us-east-1 --repository-name cloudarchitecture/l3-webservice-frontend
 aws ecr create-repository --region us-east-1 --repository-name cloudarchitecture/l3-worker-service-backend 
 ```
+## create a secret for the AWS ACCOUNT ID and apply it 
+```shell
+k apply -f secrets/secrets.yaml
+```
+
 - 
 # Description
 ![img_6.png](img_6.png)
