@@ -10,12 +10,7 @@ export body='{"text": "This is a test task"}'
 aws ecr create-repository --region us-east-1 --repository-name cloudarchitecture/l3-webservice-frontend
 aws ecr create-repository --region us-east-1 --repository-name cloudarchitecture/l3-worker-service-backend 
 ```
-## create a secret for the AWS ACCOUNT ID and apply it 
-```shell
-k apply -f secrets/secrets.yaml
-```
 
-- 
 # Description
 ![img_6.png](img_6.png)
 
@@ -111,7 +106,21 @@ k exec -it service/web-app-fe-service -n $NS -- curl -X POST -H $headers -d $bod
 ```
 ![img_5.png](img_5.png)
 
+check with minikube ip : 
+```shell
+minikube service web-app-fe-service -n $NS
+```
+![img_9.png](img_9.png)
 
+And then check /livetest:
+![img_8.png](img_8.png)
+ 
+
+to check the analyze: 
+```shell
+curl -X POST -H "Content-Type: application/json" -d '{"text": "This is a test task"}' http://127.0.0.1:65460/analyze
+```
+![img_10.png](img_10.png)
 
 # Scan using trivy 
 ```shell
