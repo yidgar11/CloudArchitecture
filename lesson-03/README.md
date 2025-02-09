@@ -122,6 +122,10 @@ curl -X POST -H "Content-Type: application/json" -d '{"text": "This is a test ta
 ```
 ![img_10.png](img_10.png)
 
+
+also used `postman`
+![img_11.png](img_11.png)
+
 # Scan using trivy 
 ```shell
 trivy image -f json  \
