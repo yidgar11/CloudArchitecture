@@ -17,7 +17,7 @@ spec:
         - name: lesson3-secret
       containers:
       - name: web-app-fe # this is the Frontend
-        image: ${AWS_ID}.dkr.ecr.us-east-1.amazonaws.com/cloudarchitecture/l3-webservice-frontend:1.0
+        image: 148761662110.dkr.ecr.us-east-1.amazonaws.com/cloudarchitecture/l3-webservice-frontend:1.0
         imagePullPolicy: Always
         resources:
           requests:
