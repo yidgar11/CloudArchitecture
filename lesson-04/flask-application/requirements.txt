@@ -1,0 +1,4 @@
+flask==3.1.0
+requests==2.32.3
+jsonify==0.5
+psycopg2-binary==2.9.10
