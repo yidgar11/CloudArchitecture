@@ -80,22 +80,33 @@ docker pull ${AWS_ID}.dkr.ecr.${region}.amazonaws.com/{repository}/{image_name}:
 k apply -f namespace/task4-namespace.yaml
 k apply -f configuration/flask-config.yaml
 k apply -f secrets/flask-secret.yaml
+
+# nginx
+k create ns ingress-nginx 
+k apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml 
+
 # deployments 
 k apply -f flask-application/flask-deployment.yaml
+k apply -f flask-application/ingress-class.yaml
+k apply -f flask-application/flask-ingress.yaml
 ```
 
-# Deletion of all resources
+# Deletion of all resources 
 ```shell
 # deployments 
 k delete -f flask-application/flask-deployment.yaml
+k delete -f flask-application/ingress-class.yaml
 
-## Configs 
-k delete -f namespace/task4-namespace.yaml
+## Configs and NS 
 k delete -f configuration/flask-config.yaml
-k apply -f secrets/flask-secret.yaml
+k delete -f secrets/flask-secret.yaml
+k delete -f namespace/task4-namespace.yaml
 
 # nginx
+k delete -f flask-application/ingress-class.yaml
+k delete -f flask-application/flask-ingress.yaml
 k delete ns ingress-nginx 
+
 ```
 
 # Check pod and service works with livetest 
@@ -109,3 +120,56 @@ curl localhost:5000/
 ```
 Expected:
 ![img.png](img.png)
+
+
+# check the service from minikube 
+```shell
+minikube service flask-service -n $NS --url
+# then run (with the assigned minikube port displayed: 
+http://127.0.0.1:52305/ 
+
+# expected 
+Hello, World!
+flask-app is alive 
+```
+![img_1.png](img_1.png)
+
+and curl command: 
+
+![img_2.png](img_2.png)
+
+
+# Check the ingress
+
+## run minikube tunnel to expose it to the ingress and to get ip
+```shell
+sudo minikube tunnel
+
+# and in another tab :
+k get all -n ingress-ngin
+```
+before running minukube tunnel, there is pending for the External-IP :
+![img_3.png](img_3.png)
+
+After running minikibe tunnel , External-IP is assigned to the ingress-nginx-controller:
+![img_4.png](img_4.png)
+
+add to local /etc/hosts link flask.local to the minikube tunnel ip  
+![img_5.png](img_5.png)
+
+
+# check the nginx configuration in the nginx controller 
+```shell
+ k exec -it service/ingress-nginx-controller -n ingress-nginx -- /bin/bash
+```
+
+
+# Verify that the Ingress controller is directing traffic
+```shell
+curl --resolve "flask.local:80:127.0.0.1" -i http://flask.local
+```
+![img_6.png](img_6.png)
+
+also , check the flask.local via browser : 
+
+![img_7.png](img_7.png)
