@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: test-log-generator
+  namespace: flask-app
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: hello
+              image: curlimages/curl:latest
+              imagePullPolicy: Always
+              command:
+                - /bin/sh
+                - -c
+                - "curl flask-service:80/"
+          restartPolicy: OnFailure

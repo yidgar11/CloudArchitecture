@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: flask-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/data # it means that the underlying storage is mounted on that path inside the Kubernetes node
+
+# in minikube , run `minikube ssh` command  , and then you can access the directory
+
+
+# Persistent Volumes (PVs) are cluster-scoped resources and are not bound to any specific namespace.
+# They exist at the cluster level and can be accessed by any namespace within the cluster.

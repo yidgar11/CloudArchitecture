@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: flask-app
   namespace: flask-app
@@ -22,7 +22,7 @@ spec:
         # ForPRIVATE , USe
         #image: 148761662110.dkr.ecr.us-east-1.amazonaws.com/cloudexperts/falsk-app
         volumeMounts:
-          - mountPath: "/flask-data"
+          - mountPath: "/flask-data"  # this is the mount in the pod
             name: flask-storage
         env:
         - name: BASE_DIR

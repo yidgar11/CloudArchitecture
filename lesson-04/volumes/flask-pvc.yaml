@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: flask-pvc
+  namespace:  flask-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+# Persistent Volume Claims (PVCs), on the other hand, are namespace-scoped resources.
+# This means a PVC is tied to a specific namespace and can only be used by Pods within that same namespace.

@@ -17,10 +17,10 @@ aws ecr-public get-login-password --region ${region} | docker login --username A
 ## Create PRIVATE OR PUBLIC repository in AWS for the flask-app
 ```shell
 # For PRIVATE
-aws ecr create-repository --region ${region} --repository-name cloudexperts/falsk-app
+aws ecr create-repository --region ${region} --repository-name cloudexperts_yidgar/falsk-app
 
 # FOr PUBLIC 
-aws ecr-public create-repository --repository-name cloudexperts/flask-app
+aws ecr-public create-repository --repository-name cloudexperts_yidgar/flask-app
  
 ```
 
@@ -31,8 +31,11 @@ k apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deplo
 ```
 
 # Description
-TODO - Add schema 
+### Flask-app 
+![img_9.png](img_9.png)
 
+### Volumes
+![img_8.png](img_8.png)
 
 
 
@@ -41,19 +44,19 @@ TODO - Add schema
 ```shell
 cd flask-application/
 # For PRIVATE repo 
-docker build -t ${AWS_ID}.dkr.ecr.${region}.amazonaws.com/cloudexperts/falsk-app:1.0 .
+docker build -t ${AWS_ID}.dkr.ecr.${region}.amazonaws.com/cloudexperts_yidgar/falsk-app:1.0 .
 
 # or for PUBLIC Repo
-docker build -t  .
+docker build -t public.ecr.aws/q2y0f5j6/cloudexperts_yidgar/flask-app:1.0 .
 ```
 
 2. Push the image
 ```shell
 # PRIVATE 
-docker push  ${AWS_ID}.dkr.ecr.${region}.amazonaws.com/cloudexperts/falsk-app:1.0
+docker push  ${AWS_ID}.dkr.ecr.${region}.amazonaws.com/cloudexperts_yidgar/falsk-app:1.0
 
 # PUBLIC 
-docker push public.ecr.aws/q2y0f5j6/cloudexperts/flask-app:1.0
+docker push public.ecr.aws/q2y0f5j6/cloudexperts_yidgar/flask-app:1.0
 ```
 
 3. Create Secret for pulling the image from ECR 
@@ -85,22 +88,44 @@ k apply -f secrets/flask-secret.yaml
 k create ns ingress-nginx 
 k apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml 
 
+# volumes
+k apply -f volumes/flask-pv.yaml
+k apply -f volumes/flask-pvc.yaml
+
+
 # deployments 
 k apply -f flask-application/flask-deployment.yaml
+# OR at latest task request: 
+k apply -f flask-application/flask-statefulset.yaml
+
 k apply -f flask-application/ingress-class.yaml
 k apply -f flask-application/flask-ingress.yaml
+
+# Cron
+k apply -f ../cron/flask-cron.yaml
 ```
 
-# Deletion of all resources 
+# Deletion of all resources (at the end)
 ```shell
 # deployments 
 k delete -f flask-application/flask-deployment.yaml
+# OR at latest task request: 
+k delete -f flask-application/flask-statefulset.yaml
+
 k delete -f flask-application/ingress-class.yaml
+
+# Cron
+k delete -f ../cron/flask-cron.yaml
+
 
 ## Configs and NS 
 k delete -f configuration/flask-config.yaml
 k delete -f secrets/flask-secret.yaml
 k delete -f namespace/task4-namespace.yaml
+
+# volumes
+k delete -f volumes/flask-pv.yaml
+k delete -f volumes/flask-pvc.yaml
 
 # nginx
 k delete -f flask-application/ingress-class.yaml
@@ -173,3 +198,33 @@ curl --resolve "flask.local:80:127.0.0.1" -i http://flask.local
 also , check the flask.local via browser : 
 
 ![img_7.png](img_7.png)
+
+# Check log files in the flask app POD 
+```shell
+# Login to the pod 
+k exec -it flask-app-0 -n  $NS -- /bin/bash
+
+# check log file  
+tail -10 /flask-data/var/log/app.log
+
+# run curl command 
+curl localhost:5000/
+
+# expect to see line with "Flask app received a request on /" 
+```
+![img_10.png](img_10.png)
+
+
+# Verify that log files exists in the DaemonSet POD 
+
+```shell
+# login to the flask-daemonset
+k exec -it daemonset.apps/flask-daemonset -n $NS -- /bin/sh
+
+# and run below  
+tail -5 /flask-data/var/log/var/log/app.log
+```
+![img_11.png](img_11.png)
+
+
+# After flask-cron is applied , check in the flask-daemonset that you get a log entry every 5 minutes
