@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
-RUN apt-get update && apt-get -y upgrade && apt-get install -y curl iputils-ping net-tools && apt-get clean
+RUN apt-get update && apt-get -y upgrade && apt-get install -y curl iputils-ping net-tools dnsutils && apt-get clean
 
 EXPOSE 5002
 

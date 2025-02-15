@@ -189,13 +189,13 @@ add to local /etc/hosts link flask.local to the minikube tunnel ip
 ```
 
 
-# Verify that the Ingress controller is directing traffic
+# Verify that the INGRESS controller is directing traffic
 ```shell
 curl --resolve "flask.local:80:127.0.0.1" -i http://flask.local
 ```
 ![img_6.png](img_6.png)
 
-also , check the flask.local via browser : 
+Also , check  ingress with the "flask.local" via browser : 
 
 ![img_7.png](img_7.png)
 
@@ -228,3 +228,16 @@ tail -5 /flask-data/var/log/var/log/app.log
 
 
 # After flask-cron is applied , check in the flask-daemonset that you get a log entry every 5 minutes
+![img_15.png](img_15.png)
+
+# Final Validation 
+```bash
+kubectl get all -n flask-app
+kubectl logs <flask-pod-name> -n flask-app
+kubectl get pvc -n flask-app
+```
+![img_12.png](img_12.png)
+
+![img_13.png](img_13.png)
+
+![img_14.png](img_14.png)
