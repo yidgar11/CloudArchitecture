@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jenkins-docker-agent
+  labels:
+    jenkins: agent
+spec:
+  containers:
+    - name: jenkins-agent
+      image: docker:dind
+      securityContext:
+        privileged: true # Required for Docker-in-Docker
+      volumeMounts:
+        - name: docker-sock-volume
+          mountPath: /var/run/docker.sock
+  volumes:
+    - name: docker-sock-volume
+      hostPath:
+        path: /var/run/docker.sock # Mount host's Docker socket into the container
