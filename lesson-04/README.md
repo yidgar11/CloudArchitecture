@@ -228,7 +228,7 @@ tail -5 /flask-data/var/log/var/log/app.log
 
 
 # After flask-cron is applied , check in the flask-daemonset that you get a log entry every 5 minutes
-![img_15.png](img_15.png)
+![img_15.png](img_15.png)/˘˘˘˘˘˘
 
 # Final Validation 
 ```bash
