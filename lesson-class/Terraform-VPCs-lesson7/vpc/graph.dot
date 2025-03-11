@@ -1,0 +1,70 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_instance.vpc1_ec2 (expand)" [label = "aws_instance.vpc1_ec2", shape = "box"]
+		"[root] aws_instance.vpc2_ec2 (expand)" [label = "aws_instance.vpc2_ec2", shape = "box"]
+		"[root] aws_internet_gateway.vpc1_igw (expand)" [label = "aws_internet_gateway.vpc1_igw", shape = "box"]
+		"[root] aws_internet_gateway.vpc2_igw (expand)" [label = "aws_internet_gateway.vpc2_igw", shape = "box"]
+		"[root] aws_key_pair.my_key_pair (expand)" [label = "aws_key_pair.my_key_pair", shape = "box"]
+		"[root] aws_route.vpc1_to_vpc2 (expand)" [label = "aws_route.vpc1_to_vpc2", shape = "box"]
+		"[root] aws_route.vpc2_to_vpc1 (expand)" [label = "aws_route.vpc2_to_vpc1", shape = "box"]
+		"[root] aws_route_table.vpc1_public_rt (expand)" [label = "aws_route_table.vpc1_public_rt", shape = "box"]
+		"[root] aws_route_table.vpc2_public_rt (expand)" [label = "aws_route_table.vpc2_public_rt", shape = "box"]
+		"[root] aws_route_table_association.vpc1_public_rt_assoc (expand)" [label = "aws_route_table_association.vpc1_public_rt_assoc", shape = "box"]
+		"[root] aws_route_table_association.vpc2_public_rt_assoc (expand)" [label = "aws_route_table_association.vpc2_public_rt_assoc", shape = "box"]
+		"[root] aws_security_group.vpc1_sg (expand)" [label = "aws_security_group.vpc1_sg", shape = "box"]
+		"[root] aws_security_group.vpc2_sg (expand)" [label = "aws_security_group.vpc2_sg", shape = "box"]
+		"[root] aws_subnet.vpc1_public_subnet (expand)" [label = "aws_subnet.vpc1_public_subnet", shape = "box"]
+		"[root] aws_subnet.vpc2_public_subnet (expand)" [label = "aws_subnet.vpc2_public_subnet", shape = "box"]
+		"[root] aws_vpc.vpc1 (expand)" [label = "aws_vpc.vpc1", shape = "box"]
+		"[root] aws_vpc.vpc2 (expand)" [label = "aws_vpc.vpc2", shape = "box"]
+		"[root] aws_vpc_peering_connection.vpc1_vpc2 (expand)" [label = "aws_vpc_peering_connection.vpc1_vpc2", shape = "box"]
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" [label = "provider[\"registry.terraform.io/hashicorp/aws\"]", shape = "diamond"]
+		"[root] aws_instance.vpc1_ec2 (expand)" -> "[root] aws_key_pair.my_key_pair (expand)"
+		"[root] aws_instance.vpc1_ec2 (expand)" -> "[root] aws_security_group.vpc1_sg (expand)"
+		"[root] aws_instance.vpc1_ec2 (expand)" -> "[root] aws_subnet.vpc1_public_subnet (expand)"
+		"[root] aws_instance.vpc2_ec2 (expand)" -> "[root] aws_key_pair.my_key_pair (expand)"
+		"[root] aws_instance.vpc2_ec2 (expand)" -> "[root] aws_security_group.vpc2_sg (expand)"
+		"[root] aws_instance.vpc2_ec2 (expand)" -> "[root] aws_subnet.vpc2_public_subnet (expand)"
+		"[root] aws_internet_gateway.vpc1_igw (expand)" -> "[root] aws_vpc.vpc1 (expand)"
+		"[root] aws_internet_gateway.vpc2_igw (expand)" -> "[root] aws_vpc.vpc2 (expand)"
+		"[root] aws_key_pair.my_key_pair (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_route.vpc1_to_vpc2 (expand)" -> "[root] aws_route_table.vpc1_public_rt (expand)"
+		"[root] aws_route.vpc1_to_vpc2 (expand)" -> "[root] aws_vpc_peering_connection.vpc1_vpc2 (expand)"
+		"[root] aws_route.vpc2_to_vpc1 (expand)" -> "[root] aws_route_table.vpc2_public_rt (expand)"
+		"[root] aws_route.vpc2_to_vpc1 (expand)" -> "[root] aws_vpc_peering_connection.vpc1_vpc2 (expand)"
+		"[root] aws_route_table.vpc1_public_rt (expand)" -> "[root] aws_internet_gateway.vpc1_igw (expand)"
+		"[root] aws_route_table.vpc2_public_rt (expand)" -> "[root] aws_internet_gateway.vpc2_igw (expand)"
+		"[root] aws_route_table_association.vpc1_public_rt_assoc (expand)" -> "[root] aws_route_table.vpc1_public_rt (expand)"
+		"[root] aws_route_table_association.vpc1_public_rt_assoc (expand)" -> "[root] aws_subnet.vpc1_public_subnet (expand)"
+		"[root] aws_route_table_association.vpc2_public_rt_assoc (expand)" -> "[root] aws_route_table.vpc2_public_rt (expand)"
+		"[root] aws_route_table_association.vpc2_public_rt_assoc (expand)" -> "[root] aws_subnet.vpc2_public_subnet (expand)"
+		"[root] aws_security_group.vpc1_sg (expand)" -> "[root] aws_vpc.vpc1 (expand)"
+		"[root] aws_security_group.vpc2_sg (expand)" -> "[root] aws_vpc.vpc2 (expand)"
+		"[root] aws_subnet.vpc1_public_subnet (expand)" -> "[root] aws_vpc.vpc1 (expand)"
+		"[root] aws_subnet.vpc2_public_subnet (expand)" -> "[root] aws_vpc.vpc2 (expand)"
+		"[root] aws_vpc.vpc1 (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_vpc.vpc2 (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_vpc_peering_connection.vpc1_vpc2 (expand)" -> "[root] aws_vpc.vpc1 (expand)"
+		"[root] aws_vpc_peering_connection.vpc1_vpc2 (expand)" -> "[root] aws_vpc.vpc2 (expand)"
+		"[root] output.vpc1_ec2_public_ip (expand)" -> "[root] aws_instance.vpc1_ec2 (expand)"
+		"[root] output.vpc1_id (expand)" -> "[root] aws_vpc.vpc1 (expand)"
+		"[root] output.vpc2_ec2_public_ip (expand)" -> "[root] aws_instance.vpc2_ec2 (expand)"
+		"[root] output.vpc2_id (expand)" -> "[root] aws_vpc.vpc2 (expand)"
+		"[root] output.vpc_peering_connection_id (expand)" -> "[root] aws_vpc_peering_connection.vpc1_vpc2 (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_instance.vpc1_ec2 (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_instance.vpc2_ec2 (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_route.vpc1_to_vpc2 (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_route.vpc2_to_vpc1 (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_route_table_association.vpc1_public_rt_assoc (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_route_table_association.vpc2_public_rt_assoc (expand)"
+		"[root] root" -> "[root] output.vpc1_ec2_public_ip (expand)"
+		"[root] root" -> "[root] output.vpc1_id (expand)"
+		"[root] root" -> "[root] output.vpc2_ec2_public_ip (expand)"
+		"[root] root" -> "[root] output.vpc2_id (expand)"
+		"[root] root" -> "[root] output.vpc_peering_connection_id (expand)"
+		"[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)"
+	}
+}
+
