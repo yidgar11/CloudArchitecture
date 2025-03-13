@@ -9,8 +9,8 @@ terraform {
 
 # provider "github" {
 #   # mt_github_token
-#   token = "ghp_dKqSHjrIt...."
 # }
+
 
 resource "github_repository" "terraform-example-yidgar" {
   name = "terraform-example"

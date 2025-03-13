@@ -2,8 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/k8s_jenkins_project" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/k8s_project" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/rmqp-example" vcs="Git" />
   </component>
 </project>
