@@ -7,9 +7,6 @@ terraform {
   }
 }
 
-# provider "github" {
-#   # mt_github_token
-# }
 
 
 resource "github_repository" "terraform-example-yidgar" {
