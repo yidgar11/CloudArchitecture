@@ -1,5 +1,30 @@
+variable "vpc_id" {
+  description = "The ID of the VPC"
+  type        = string
+}
+
+variable "lt_name" {
+  description = "Lunch Template_name"
+  type        = string
+}
+
+
+variable "image_id" {
+  description = "Lunch Template_name"
+  type        = string
+}
+
+variable "key_name" {
+  description = "Lunch Template_name"
+  type        = string
+}
+
 variable "instance_type" {
-  type = string                     # The type of the variable, in this case a string
-  default = "t2.micro"                 # Default value for the variable
-  description = "The type of EC2 instance" # Description of what this variable represents
+  type = string
+  description = "The type of EC2 instance"
+}
+
+variable "sg_id" {
+  type = string
+  description = "security group id "
 }

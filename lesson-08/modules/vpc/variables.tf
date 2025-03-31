@@ -1,5 +1,14 @@
-variable "instance_type" {
-  type = string                     # The type of the variable, in this case a string
-  default = "t2.micro"                 # Default value for the variable
-  description = "The type of EC2 instance" # Description of what this variable represents
+variable "region" {
+  description = "AWS region"
+  type        = string
+}
+
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  type        = string
+}
+
+variable "vpc_name" {
+  description = "VPC Name"
+  type        = string
 }

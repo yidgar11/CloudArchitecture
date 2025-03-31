@@ -1,20 +1,68 @@
-terraform {
-  required_version = ">= 1.0.0" # Ensure that the Terraform version is 1.0.0 or higher
+resource "aws_security_group" "alb_sg" {
+  name        = "alb-sg"
+  description = "Security group for the Application Load Balancer"
+  vpc_id      = var.vpc_id
 
-  required_providers {
-    aws = {
-      source = "hashicorp/aws" # Specify the source of the AWS provider
-      version = "~> 4.0"        # Use a version of the AWS provider that is compatible with version
-    }
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = [var.alb_sg_cidr]
+  }
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [var.alb_sg_cidr]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
-provider "aws" {
-  region = "us-east-1" # Set the AWS region to US East (N. Virginia)
+resource "aws_security_group" "ec2_sg" {
+  name        = "ec2-sg"
+  description = "Security group for EC2 instances"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb_sg.id]
+  }
+  ingress {
+    from_port       = 443
+    to_port         = 443
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb_sg.id]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
-resource "aws_instance" "aws_example" {
-  tags = {
-    Name = "ExampleInstance" # Tag the instance with a Name tag for easier identification
+resource "aws_security_group" "rds_sg" {
+  name        = "rds-sg"
+  description = "Security group for RDS MySQL, accessible only from EC2"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = [aws_security_group.ec2_sg.id]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }

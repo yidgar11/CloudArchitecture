@@ -1,20 +1,36 @@
-terraform {
-  required_version = ">= 1.0.0" # Ensure that the Terraform version is 1.0.0 or higher
+locals {
+  rds_name    = "${var.environment}-${var.rds_name}-rds-rds"
+  rds_sg_name = "${var.environment}-${var.rds_name}-rds_sg-rds"
+}
 
-  required_providers {
-    aws = {
-      source = "hashicorp/aws" # Specify the source of the AWS provider
-      version = "~> 4.0"        # Use a version of the AWS provider that is compatible with version
-    }
+resource "aws_db_instance" "default" {
+  allocated_storage   = 10
+  db_name             = local.rds_name
+  engine              = var.db_engine
+  engine_version      = var.db_engine_version
+  instance_class      = "db.t3.micro"
+  username            = var.db_root_username
+  password            = var.db_root_password
+  skip_final_snapshot = true
+
+  identifier = "${var.environment}-rds-instance"
+
+  vpc_security_group_ids = var.rds_security_group_ids
+  db_subnet_group_name   = aws_db_subnet_group.default.name
+  multi_az               = true
+
+  tags = {
+    Name = local.rds_name
+    Env  = var.environment
   }
 }
 
-provider "aws" {
-  region = "us-east-1" # Set the AWS region to US East (N. Virginia)
-}
+resource "aws_db_subnet_group" "default" {
+  name       = local.rds_sg_name
+  subnet_ids = var.subnet_ids
 
-resource "aws_instance" "aws_example" {
   tags = {
-    Name = "ExampleInstance" # Tag the instance with a Name tag for easier identification
+    Name = local.rds_sg_name
+    Env  = var.environment
   }
 }
